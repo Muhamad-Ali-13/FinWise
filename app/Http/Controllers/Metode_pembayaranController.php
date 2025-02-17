@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\metode_pembayaran;
-use App\Models\target_pembayaran;
 use Illuminate\Http\Request;
 
 class Metode_pembayaranController extends Controller
@@ -13,9 +12,9 @@ class Metode_pembayaranController extends Controller
      */
     public function index()
     {
-        $metodeP = metode_pembayaran::paginate(5);
+        $metode = metode_pembayaran::paginate(5);
         return view('page.metodeP.index')->with([
-            'metodeP' => $metodeP,
+            'metode' => $metode,
         ]);
     }
 
@@ -63,27 +62,19 @@ class Metode_pembayaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Cari data target pembayaran berdasarkan ID
-        $targetP = target_pembayaran::findOrFail($id);
+        $metode = metode_pembayaran::findOrFail($id);
 
-        // Validasi data input
+        // Validasi data
         $request->validate([
-            'id_user' => 'required|exists:users,id', // Pastikan id_user ada di tabel users
-            'id_kategori' => 'required|exists:kategori,id', // Pastikan id_kategori ada di tabel kategori
-            'jumlah_target' => 'required|numeric|min:0', // Jumlah target harus angka positif
-            'periode' => 'required|string|max:255', // Periode harus string maksimal 255 karakter
+            'metode_pembayaran' => 'required|string|max:255',
         ]);
 
-        // Update data target pembayaran
-        $targetP->update([
-            'id_user' => $request->id_user,
-            'id_kategori' => $request->id_kategori,
-            'jumlah_target' => $request->jumlah_target,
-            'periode' => $request->periode,
+        // Update data kategori
+        $metode->update([
+            'metode_pembayaran' => $request->metode_pembayaran,
         ]);
 
-        // Redirect kembali dengan pesan sukses
-        return redirect()->back()->with('message_update', 'Target Pembayaran berhasil diperbarui.');
+        return redirect()->back()->with('message_update', 'Metode Pembayaran berhasil diperbarui.');
     }
 
     /**
@@ -91,13 +82,8 @@ class Metode_pembayaranController extends Controller
      */
     public function destroy(string $id)
     {
-        // Cari data target pembayaran berdasarkan ID
-        $targetP = target_pembayaran::findOrFail($id);
-
-        // Hapus data
-        $targetP->delete();
-
-        // Redirect kembali dengan pesan sukses
-        return redirect()->back()->with('message_delete', 'Target Pembayaran berhasil dihapus.');
+        $data = metode_pembayaran::findOrFail($id);
+        $data->delete();
+        return back()->with('message_delete', 'Data Metode Pembayaran Sudah dihapus');
     }
 }

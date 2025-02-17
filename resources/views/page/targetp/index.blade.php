@@ -20,8 +20,14 @@
                         <form action="{{ route('target_pembayaran.store') }}" method="post">
                             @csrf
                             <div class="mb-5 w-full">
-                                <label for="id_user" class="block text-sm font-medium text-gray-700">User</label>
-                                <select id="id_user" name="id_user"
+                                <label for="base_input" class="block text-sm font-medium text-gray-700">Nama Target</label>
+                                <input name="nama_target" type="text" id="base-input"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Masukan Nama Target disini...">
+                            </div>
+                            <div class="mb-5 w-full">
+                                <label for="base_input" class="block text-sm font-medium text-gray-700">User</label>
+                                <select id="base_input" name="id_user"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value=""></option>
                                     @foreach ($user as $u)
@@ -30,8 +36,9 @@
                                 </select>
                             </div>
                             <div class="mb-5 w-full">
-                                <label for="id_kategori" class="block text-sm font-medium text-gray-700">Kategori</label>
-                                <select id="id_kategori" name="id_kategori"
+                                <label for="base-input"
+                                    class="block text-sm font-medium text-gray-700">Kategori</label>
+                                <select id="base_input" name="id_kategori"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value=""></option>
                                     @foreach ($kategoriP as $k)
@@ -41,7 +48,8 @@
                             </div>
                             <div class="mb-5">
                                 <label for="base-input"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Target</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                    Target</label>
                                 <input name="jumlah_target" type="number" id="base-input"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Masukan Jumlah Target disini...">
@@ -66,6 +74,9 @@
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             NO
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            NAMA TARGET
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             USER
@@ -96,31 +107,36 @@
                                                 {{ $targetP->perPage() * ($targetP->currentPage() - 1) + $key + 1 }}
                                             </th>
                                             <td class="px-6 py-4">
-                                                {{ $t->id_user->name}}
+                                                {{ $t->nama_target }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{ $t->id_kategori->data-nama_kategori}}
+                                                {{ $t->id_user }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{ $t->jumlah_target}}
+                                                {{ $t->id_kategori }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{ $t->periode}}
+                                                {{ $t->jumlah_target }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $t->periode }}
                                             </td>
                                             <td class="px-6 py-4">
                                                 <button type="button"
                                                     class="bg-amber-400 p-3 w-10 h-10 rounded-xl text-white hover:bg-amber-500"
                                                     onclick="editSourceModal(this)" data-modal-target="sourceModal"
-                                                    data-id="{{ $t->id }}"
+                                                    data-id="{{ $t->id }}" 
+                                                    data-nama_target="{{ $t->nama_target }}"
                                                     data-id_user="{{ $t->id_user }}"
-                                                    data-id_kategori="{{ $t->id_kategori }}" data-jumlah_target="{{ $t->jumlah_target }}"
+                                                    data-id_kategori="{{ $t->id_kategori }}"
+                                                    data-jumlah_target="{{ $t->jumlah_target }}"
                                                     data-periode="{{ $t->periode }}">
                                                     <i class="fi fi-sr-file-edit"></i>
                                                 </button>
 
                                                 <button
                                                     class="bg-red-400 mt-3 p-3 w-10 h-10 rounded-xl text-white hover:bg-red-500"
-                                                    onclick="return paketDelete('{{ $t->id }}'">
+                                                    onclick="return targetPDelete('{{ $t->id }}','{{ $t->nama_target }}')">
                                                     <i class="fi fi-sr-delete-document"></i>
                                                 </button>
                                             </td>
@@ -155,12 +171,56 @@
                     @csrf
                     @method('PATCH')
                     <div class="flex flex-col  p-4 space-y-6">
+                    <div class="mb-5 w-full">
+                        <label for="nama_target" class="block text-sm font-medium text-gray-700">Nama Target</label>
+                        <input name="nama_target" type="text" id="nama_target"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Masukan Nama Target disini...">
+                    </div>
+                    </div>
+                    <div class="flex flex-col  p-4 space-y-6">
                         <div class="mb-5">
-                            <label for="metode_pembayaran" class="block mb-2 text-sm font-medium text-gray-900">Metode
-                                Pembayaran</label>
-                            <input type="text" id="metode_pembayaran" name="metode_pembayaran"
+                            <label for="id_user"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User</label>
+                            <select class="js-example-placeholder-single js-states form-control w-full m-6"
+                                name="id_user" id="id_user" data-placeholder="Pilih User">
+                                <option value="">Pilih...</option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex flex-col  p-4 space-y-6">
+                        <div class="mb-5">
+                            <label for="id_kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">kategori</label>
+                            <select class="js-example-placeholder-single js-states form-control w-full m-6"
+                                name="id_kategori" id="id_kategori" data-placeholder="Pilih Kategori">
+                                <option value="">Pilih...</option>
+                                @foreach ($kategoriP as $k)
+                                    <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex flex-col  p-4 space-y-6">
+                        <div class="mb-5">
+                            <label for="jumlah_target"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                Target</label>
+                            <input name="jumlah_target" type="number" id="jumlah_target"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Nama Metode Pembayaran disini...">
+                                placeholder="Masukan Jumlah Target disini...">
+                        </div>
+                    </div>
+                    <div class="flex flex-col  p-4 space-y-6">
+                        <div class="mb-5">
+                            <label for="periode"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Periode</label>
+                            <input name="periode" type="text" id="periode"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Masukan Periode disini...">
                         </div>
                     </div>
                     <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
@@ -180,6 +240,7 @@
         const modal = document.getElementById('sourceModal');
 
         const id = button.dataset.id;
+        const nama_target = button.dataset.nama_target;
         const id_user = button.dataset.id_user;
         const id_kategori = button.dataset.id_kategori;
         const jumlah_target = button.dataset.jumlah_target;
@@ -190,6 +251,7 @@
         formModal.setAttribute('action', url);
 
         // Perbaiki input
+        document.getElementById('nama_target').value = nama_target;
         document.getElementById('id_user').value = id_user;
         document.getElementById('id_kategori').value = id_kategori;
         document.getElementById('jumlah_target').value = jumlah_target;

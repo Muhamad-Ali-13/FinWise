@@ -40,6 +40,7 @@ class Target_pembayaranController extends Controller
     {
         $data = [
             'id' => $request->input('id'),
+            'nama_target' => $request->nama_target,
             'id_user' => Auth::user()->id,
             'id_kategori' => $request->id_kategori,
             'jumlah_target' => $request->jumlah_target,
@@ -72,19 +73,30 @@ class Target_pembayaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
+       
+        // Cari data target pembayaran berdasarkan ID
         $targetP = target_pembayaran::findOrFail($id);
 
-        // Validasi data
+        // Validasi data input
         $request->validate([
-            'metode_pembayaran' => 'required|string|max:255',
+            'nama_target' => 'required|string|max:255',
+            'id_user' => 'required|exists:users,id', // Pastikan id_user ada di tabel users
+            'id_kategori' => 'required|exists:kategori,id', // Pastikan id_kategori ada di tabel kategori
+            'jumlah_target' => 'required|numeric|min:0', // Jumlah target harus angka positif
+            'periode' => 'required|string|max:255', // Periode harus string maksimal 255 karakter
         ]);
 
-        // Update data kategori
+        // Update data target pembayaran
         $targetP->update([
-            'metode_pembayaran' => $request->metode_pembayaran,
+            'nama_target' => $request->nama_target,
+            'id_user' => $request->id_user,
+            'id_kategori' => $request->id_kategori,
+            'jumlah_target' => $request->jumlah_target,
+            'periode' => $request->periode,
         ]);
 
-        return redirect()->back()->with('message_update', 'Metode Pembayaran berhasil diperbarui.');
+        // Redirect kembali dengan pesan sukses
+        return redirect()->back()->with('message_update', 'Target Pembayaran berhasil diperbarui.');
     }
 
     /**
@@ -92,6 +104,8 @@ class Target_pembayaranController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = target_pembayaran::findOrFail($id);
+        $data->delete();
+        return back()->with('message_delete', 'Data Metode Pembayaran Sudah dihapus');
     }
 }

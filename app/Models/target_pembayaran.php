@@ -13,6 +13,7 @@ class target_pembayaran extends Model
     protected $table = 'target_pembayaran';
 
     protected $fillable = [
+        'nama_target',
         'id_user',
         'id_kategori', 
         'jumlah_target', 

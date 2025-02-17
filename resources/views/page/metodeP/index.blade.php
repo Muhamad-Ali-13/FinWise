@@ -41,7 +41,7 @@
                                             NO
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                        METODE PEMBAYARAN
+                                            METODE PEMBAYARAN
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             ACTION
@@ -52,12 +52,12 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($metodeP as $key => $M)
+                                    @foreach ($metode as $key => $M)
                                         <tr
                                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $metodeP->perPage() * ($metodeP->currentPage() - 1) + $key + 1 }}
+                                                {{ $metode->perPage() * ($metode->currentPage() - 1) + $key + 1 }}
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ $M->metode_pembayaran }}
@@ -67,7 +67,7 @@
                                                     class="bg-amber-400 p-3 w-10 h-10 rounded-xl text-white hover:bg-amber-500"
                                                     onclick="editSourceModal(this)" data-modal-target="sourceModal"
                                                     data-id="{{ $M->id }}"
-                                                    data-nama_kategori="{{ $M->metode_pembayaran }}">
+                                                    data-metode_pembayaran="{{ $M->metode_pembayaran }}">
                                                     <i class="fi fi-sr-file-edit"></i>
                                                 </button>
 
@@ -83,7 +83,7 @@
                             </table>
                         </div>
                         <div class="mt-4">
-                            {{ $metodeP->links() }}
+                            {{ $metode->links() }}
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                             <label for="metode_pembayaran" class="block mb-2 text-sm font-medium text-gray-900">Metode Pembayaran</label>
                             <input type="text" id="metode_pembayaran" name="metode_pembayaran"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Nama Metode Pembayaran disini...">
+                                placeholder="Masukan Metode Pembayaran disini...">
                         </div>
                     </div>
                     <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
@@ -162,10 +162,10 @@
         status.classList.toggle('hidden');
     }
 
-    const paketDelete = async (id, MetodeP) => {
-        let tanya = confirm(`Apakah anda yakin untuk menghapus MetodeP ${MetodeP} ?`);
+    const paketDelete = async (id, metode_pembayaran) => {
+        let tanya = confirm(`Apakah anda yakin untuk menghapus Metode ${metode_pembayaran} ?`);
         if (tanya) {
-            await axios.post(`/MetodeP/${id}`, {
+            await axios.post(`/metode_pembayaran/${id}`, {
                     '_method': 'DELETE',
                     '_token': $('meta[name="csrf-token"]').attr('content')
                 })

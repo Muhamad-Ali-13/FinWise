@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('target_pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
+            $table->string('nama_target');
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->foreignId('id_kategori')->constrained('kategori')->onDelete('cascade');
             $table->Integer('jumlah_target');
             $table->string('periode');
