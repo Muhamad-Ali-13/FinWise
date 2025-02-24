@@ -19,3 +19,18 @@ export default {
 
     plugins: [forms],
 };
+
+// tailwind.config.js
+module.exports = {
+    darkMode: 'class', // Aktifkan dark mode berbasis class
+    content: [
+      './resources/**/*.blade.php',
+      './resources/**/*.js',
+      './resources/**/*.vue',
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  };
+  

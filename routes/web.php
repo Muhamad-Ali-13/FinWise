@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\kategoriContoller;
 use App\Http\Controllers\Metode_pembayaranController;
+use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Target_pembayaranController;
+use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +19,13 @@ Route::get('/dashboard', function () {
 
 Route::resource('kategori', kategoriContoller::class)->middleware('auth');
 Route::resource('metode_pembayaran', Metode_pembayaranController::class)->middleware('auth');
-Route::resource('target_pembayaran', Target_pembayaranController::class)->middleware('auth');
 Route::resource('transaksi', TransaksiController::class)->middleware('auth');
-Route::get('/paket/{id}', [kategoriContoller::class, 'getJenis']);
+Route::resource('pemasukan', PemasukanController::class);
+Route::resource('pengeluaran', PengeluaranController::class);
+Route::resource('tabungan', TabunganController::class);
+Route::get('/pemasukan/create', [PemasukanController::class, 'create'])->name('pemasukan.create');
+Route::post('/pemasukan', [PemasukanController::class, 'store'])->name('pemasukan.store');
+
 
 
 Route::middleware('auth')->group(function () {
