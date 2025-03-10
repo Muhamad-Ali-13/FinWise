@@ -15,14 +15,15 @@
 
                     <!-- Dashboard Link -->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
-                        class="hover:bg-gray-200 hover:text-blue-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95">
-                        {{ __('Dashboard') }}
+                        class="hover:bg-gray-200 hover:text-gray-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95">
+                        {{ __('Beranda') }}
                     </x-nav-link>
 
                     <!-- Master Dropdown -->
+                    @can('role-A')
                     <x-dropdown>
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-blue-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
+                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-gray-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
                                 <div>Master</div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -33,19 +34,20 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('kategori.index')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('kategori.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Data Kategori') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('metode_pembayaran.index')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('metode_pembayaran.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Metode Pembayaran') }}
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
+                    @endcan
 
                     <!-- Transaksi Dropdown -->
                     <x-dropdown>
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-blue-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
+                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-gray-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
                                 <div>Transaksi</div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -56,22 +58,23 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('pemasukan.index')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('pemasukan.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Pemasukan') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('pengeluaran.index')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('pengeluaran.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Pengeluaran') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('tabungan.index')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('tabungan.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Tabungan') }}
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
 
+                    @can('role-A')
                     <!-- Laporan Dropdown -->
                     <x-dropdown>
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-blue-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
+                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-gray-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
                                 <div>Laporan</div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -82,11 +85,12 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('dashboard')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('dashboard')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Laporan') }}
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
+                    @endcan
 
                 </div>
 
@@ -94,7 +98,7 @@
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-blue-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
+                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 hover:text-gray-600 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 active:scale-95">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -105,7 +109,7 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')" class="hover:bg-gray-100 hover:text-blue-600 transition duration-200">
+                            <x-dropdown-link :href="route('profile.edit')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 

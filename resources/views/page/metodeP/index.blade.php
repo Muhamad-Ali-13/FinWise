@@ -189,11 +189,11 @@
         }
     }
 </script>
-@if (session('success'))
+@if (session('message_insert'))
     <script>
         Swal.fire({
             title: 'Success!',
-            text: '{{ session('success') }}',
+            text: '{{ session('message_inse') }}',
             icon: 'success',
             confirmButtonText: 'OK'
         });

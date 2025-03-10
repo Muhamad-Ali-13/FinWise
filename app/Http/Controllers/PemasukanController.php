@@ -11,6 +11,8 @@ class PemasukanController extends Controller
     public function index()
     {
         $pemasukan = Pemasukan::paginate(5);
+        $user_id = Auth::id();
+        // $pemasukan = Pemasukan::where('user_id', $user_id)->paginate(5);
         return view('page.pemasukan.index')->with([
             'pemasukan' => $pemasukan,
         ]);

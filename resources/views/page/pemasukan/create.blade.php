@@ -11,14 +11,18 @@
                 <form action="{{ route('pemasukan.store') }}" method="POST">
                     @csrf
 
-                    <!-- ID Pemasukan (Auto-generate) -->
+                    <!-- Kategori (Dropdown) -->
                     <div class="mb-4">
-                        <label for="id_pemasukan" class="block text-sm font-medium text-gray-700">ID Pemasukan</label>
-                        <input type="text" name="id_pemasukan" id="id_pemasukan" value="{{ $id_pemasukan }}" readonly
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:border-indigo-500 focus:ring-indigo-500">
+                        <label for="user_id" class="block text-sm font-medium text-gray-700">User</label>
+                        <select name="user_id" id="user_id" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">Pilih User</option>
+                            @foreach($user_id as $k)
+                                <option value="{{ $k->id }}">{{ $k->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
-                    <!-- Kategori (Dropdown) -->
                     <div class="mb-4">
                         <label for="kategori_id" class="block text-sm font-medium text-gray-700">Kategori</label>
                         <select name="kategori_id" id="kategori_id" required

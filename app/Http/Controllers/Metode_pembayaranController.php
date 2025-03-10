@@ -12,10 +12,16 @@ class Metode_pembayaranController extends Controller
      */
     public function index()
     {
-        $metode = metode_pembayaran::paginate(5);
-        return view('page.metodeP.index')->with([
-            'metode' => $metode,
-        ]);
+        try {
+            $metode = metode_pembayaran::paginate(5);
+            return view('page.metodeP.index')->with([
+                'metode' => $metode,
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.log(' PHP Error: ".
+            addslashes($e->getMessage())."')</script>";
+            return view('error.index');
+        }
     }
 
     /**
@@ -31,14 +37,22 @@ class Metode_pembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'id' => $request->input('id'),
-            'metode_pembayaran' => $request->input('metode_pembayaran'),
-        ];
-
-        metode_pembayaran::create($data);
-
-        return back()->with('success', 'Data Metode Pembayaran Sudah ditambahkan');
+        try {
+            // Validasi data
+            $data = [
+                'metode_pembayaran' => $request->metode_pembayaran,
+            ];
+            // Menambahkan data kategori
+            metode_pembayaran::create($data);
+            return redirect()
+                ->route('metode_pembayaran.index')
+                ->with('message_insert', 'Data Metode Pembayaran Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('metode_pembayaran.index')
+                ->with('error_message', 'Terjadi Kesalahan
+            Saat Menambahkan Data Metode Pembayaran:' . $e->getMessage());
+        }
     }
 
     /**
@@ -62,19 +76,23 @@ class Metode_pembayaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $metode = metode_pembayaran::findOrFail($id);
-
-        // Validasi data
-        $request->validate([
-            'metode_pembayaran' => 'required|string|max:255',
-        ]);
-
-        // Update data kategori
-        $metode->update([
-            'metode_pembayaran' => $request->metode_pembayaran,
-        ]);
-
-        return redirect()->back()->with('message_update', 'Metode Pembayaran berhasil diperbarui.');
+        try {
+            // Validasi data
+            $data = [
+                'metode_pembayaran' => $request->metode_pembayaran,
+            ];
+            // Update data kategori
+            $datas = metode_pembayaran::find($id);
+            $datas->update($data);
+            return redirect()
+                ->route('metode_pembayaran.index')
+                ->with('message_update', 'Data Metode Pembayaran Berhasil Diubah');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('metode_pembayaran.index')
+                ->with('error_message', 'Terjadi Kesalahan
+            Saat Mengubah Data Metode Pembayaran:' . $e->getMessage());
+        }
     }
 
     /**
@@ -82,8 +100,13 @@ class Metode_pembayaranController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = metode_pembayaran::findOrFail($id);
-        $data->delete();
-        return back()->with('message_delete', 'Data Metode Pembayaran Sudah dihapus');
+        try {
+            // Hapus data kategori
+            metode_pembayaran::where('id', $id)->delete();
+            return back()->with('message_delete', 'Data Metode Pembayaran Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return back()->with('error_message', 'Terjadi Kesalahan
+            Saat Menghapus Data Metode Pembayaran:' . $e->getMessage());
+        }
     }
 }

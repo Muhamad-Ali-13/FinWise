@@ -8,77 +8,81 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-4 items-ce">
-                    <div>DATA KATEGORI</div>
+                <!-- Header Section -->
+                <div class="p-4 sm:p-6">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">DATA KATEGORI</h3>
                 </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100 flex gap-5">
-                    {{-- FORM ADD --}}
-                    <div class="w-full bg-gray-100 p-4 rounded-xl">
-                        <div class="mb-5">
+
+                <!-- Responsive Grid Container -->
+                <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Form Section -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
+                        <div class="mb-5 text-lg font-medium text-gray-700 dark:text-gray-300">
                             INPUT DATA KATEGORI
                         </div>
                         <form action="{{ route('kategori.store') }}" method="post">
                             @csrf
-                            <div class="mb-5">
-                                <label for="base-input"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                    Kategori</label>
-                                <input name="nama_kategori" type="text" id="base-input"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Masukan Nama Kategori disini...">
+                            <div class="mb-4">
+                                <label for="nama_kategori" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                                    Nama Kategori
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="nama_kategori"
+                                    id="nama_kategori"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 dark:text-white dark:bg-gray-600 
+                                    dark:border-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                                    placeholder="Masukkan nama kategori..."
+                                    required
+                                >
                             </div>
-                            <button type="submit"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SIMPAN</button>
+                            <button type="submit" 
+                                class="w-full sm:w-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none 
+                                focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700">
+                                SIMPAN
+                            </button>
                         </form>
                     </div>
-                    {{-- TABLE KONSINYASI PRODUK --}}
-                    <div class="w-full">
-                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+                    <!-- Table Section -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
+                        <div class="mb-5 text-lg font-medium text-gray-700 dark:text-gray-300">
+                            DAFTAR KATEGORI
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-600 dark:text-gray-300">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            NO
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            NAMA KATEGORI
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            ACTION
-                                        </th>
+                                        <th scope="col" class="px-4 py-3">NO</th>
+                                        <th scope="col" class="px-4 py-3">NAMA KATEGORI</th>
+                                        <th scope="col" class="px-4 py-3">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
                                     @foreach ($Kategori as $key => $k)
-                                        <tr
-                                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $Kategori->perPage() * ($Kategori->currentPage() - 1) + $key + 1 }}
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $k->nama_kategori }}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <button type="button"
-                                                    class="bg-amber-400 p-3 w-10 h-10 rounded-xl text-white hover:bg-amber-500"
-                                                    onclick="editSourceModal(this)" data-modal-target="sourceModal"
-                                                    data-id="{{ $k->id }}"
-                                                    data-nama_kategori="{{ $k->nama_kategori }}">
-                                                    <i class="fi fi-sr-file-edit"></i>
-                                                </button>
-
-                                                <button
-                                                    class="bg-red-400 mt-3 p-3 w-10 h-10 rounded-xl text-white hover:bg-red-500"
-                                                    onclick="return paketDelete('{{ $k->id }}','{{ $k->nama_kategori }}')">
-                                                    <i class="fi fi-sr-delete-document"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                    <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">{{ $k->nama_kategori }}</td>
+                                        <td class="px-4 py-3 flex flex-col gap-2 sm:flex-row">
+                                            <button 
+                                                type="button"
+                                                class="w-full sm:w-auto bg-amber-400 p-2 rounded-lg text-white hover:bg-amber-500 transition-colors"
+                                                onclick="editSourceModal(this)"
+                                                data-modal-target="sourceModal"
+                                                data-id="{{ $k->id }}"
+                                                data-nama_kategori="{{ $k->nama_kategori }}"
+                                            >
+                                                <i class="fi fi-sr-file-edit"></i> Edit
+                                            </button>
+                                            <button 
+                                                type="button"
+                                                class="w-full sm:w-auto bg-red-500 p-2 rounded-lg text-white hover:bg-red-600 transition-colors mt-2 sm:mt-0"
+                                                onclick="return paketDelete('{{ $k->id }}','{{ $k->nama_kategori }}')"
+                                            >
+                                                <i class="fi fi-sr-delete-document"></i> Hapus
+                                            </button>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -91,123 +95,130 @@
             </div>
         </div>
     </div>
-    <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="sourceModal">
-        <div class="fixed inset-0 bg-black opacity-50"></div>
-        <div class="fixed inset-0 flex items-center justify-center">
-            <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
-                <div class="flex items-start justify-between p-4 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900" id="title_source">
-                        Update Sumber Database
-                    </h3>
-                    <button type="button" onclick="sourceModalClose(this)" data-modal-target="sourceModal"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
-                        data-modal-hide="defaultModal">
+
+    <!-- Responsive Modal -->
+    <div id="sourceModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black bg-opacity-50" onclick="sourceModalClose()"></div>
+        <div class="relative w-full max-w-md mx-auto mt-10">
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow p-6">
+                <div class="flex justify-between items-center mb-4 border-b pb-2 dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-300">Update Kategori</h3>
+                    <button 
+                        type="button" 
+                        onclick="sourceModalClose()"
+                        class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
+                    >
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form method="POST" id="formSourceModal">
+                <form method="POST" id="formSourceModal" class="space-y-4">
                     @csrf
                     @method('PATCH')
-                    <div class="flex flex-col  p-4 space-y-6">
-                        <div class="mb-5">
-                            <label for="nama_kategori" class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                Kategori</label>
-                            <input type="text" id="nama_kategori" name="nama_kategori"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Nama Paket disini...">
-                        </div>
+                    <div>
+                        <label for="nama_kategori" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                            Nama Kategori
+                        </label>
+                        <input 
+                            type="text" 
+                            id="nama_kategori" 
+                            name="nama_kategori"
+                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 dark:text-white dark:bg-gray-600 
+                            dark:border-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                            required
+                        >
                     </div>
-                    <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
-                        <button type="submit" id="formSourceButton"
-                            class="bg-green-400 m-2 w-40 h-10 rounded-xl hover:bg-green-500">Simpan</button>
-                        <button type="button" data-modal-target="sourceModal" onclick="sourceModalClose(this)"
-                            class="bg-red-500 m-2 w-40 h-10 rounded-xl text-white hover:shadow-lg hover:bg-red-600">Batal</button>
+                    <div class="flex justify-end gap-3">
+                        <button 
+                            type="button" 
+                            onclick="sourceModalClose()"
+                            class="text-gray-600 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 
+                            rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 
+                            dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                        >
+                            Batal
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 
+                            font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700"
+                        >
+                            Simpan Perubahan
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        // Fungsi untuk handle modal edit
+        const editSourceModal = (button) => {
+            const modal = document.getElementById('sourceModal');
+            const form = document.getElementById('formSourceModal');
+            const id = button.dataset.id;
+            const nama_kategori = button.dataset.nama_kategori;
+
+            // Set form action
+            form.action = `/kategori/${id}`;
+            
+            // Isi input dengan data saat ini
+            document.getElementById('nama_kategori').value = nama_kategori;
+
+            // Tampilkan modal
+            modal.classList.remove('hidden');
+        };
+
+        // Fungsi untuk menutup modal
+        const sourceModalClose = () => {
+            document.getElementById('sourceModal').classList.add('hidden');
+        };
+
+        // Fungsi delete dengan konfirmasi
+        const paketDelete = (id, nama) => {
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: `Yakin ingin menghapus kategori ${nama}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#666',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/kategori/${id}`)
+                        .then(() => {
+                            Swal.fire('Terhapus!', 'Kategori berhasil dihapus.', 'success')
+                                .then(() => location.reload());
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            Swal.fire('Error', 'Gagal menghapus kategori', 'error');
+                        });
+                }
+            });
+        };
+    </script>
+
+    @if(session('message_insert'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('message_insert') }}',
+                confirmButtonColor: '#3085d6'
+            });
+        </script>
+    @endif
+
+    @if(session('message_update'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Diperbarui!',
+                text: '{{ session('message_update') }}',
+                confirmButtonColor: '#3085d6'
+            });
+        </script>
+    @endif
 </x-app-layout>
-<script>
-    const editSourceModal = (button) => {
-        const formModal = document.getElementById('formSourceModal');
-        const modal = document.getElementById('sourceModal');
-
-        const id = button.dataset.id;
-        const nama_kategori = button.dataset.nama_kategori;
-
-        // Perbaiki URL aksi form
-        let url = "{{ route('kategori.update', ':id') }}".replace(':id', id);
-        formModal.setAttribute('action', url);
-
-        // Perbaiki input
-        document.getElementById('nama_kategori').value = nama_kategori;
-
-        // Pastikan tidak ada duplikasi input _method
-        let existingMethodInput = document.querySelector('[name="_method"]');
-        if (!existingMethodInput) {
-            let methodInput = document.createElement('input');
-            methodInput.setAttribute('type', 'hidden');
-            methodInput.setAttribute('name', '_method');
-            methodInput.setAttribute('value', 'PATCH');
-            formModal.appendChild(methodInput);
-        }
-
-        // Tampilkan modal
-        modal.classList.remove('hidden');
-    };
-
-
-    const sourceModalClose = (button) => {
-        const modalTarget = button.dataset.modalTarget;
-        let status = document.getElementById(modalTarget);
-        status.classList.toggle('hidden');
-    }
-
-    const paketDelete = async (id, kategori) => {
-        let tanya = confirm(`Apakah anda yakin untuk menghapus PAKET ${kategori} ?`);
-        if (tanya) {
-            await axios.post(`/kategori/${id}`, {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                })
-                .then(function(response) {
-                    // Handle success
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
-                    Swal.fire({
-                        title: 'Deleted!',
-                        text: '{{ session('message_delete') }}',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    });
-                })
-                .catch(function(error) {
-                    // Handle error
-                    alert('Error deleting record');
-                    console.log(error);
-                });
-        }
-    }
-</script>
-@if (session('success'))
-    <script>
-        Swal.fire({
-            title: 'Success!',
-            text: '{{ session('success') }}',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    </script>
-@endif
-@if (session('message_update'))
-    <script>
-        Swal.fire({
-            title: 'Updated!',
-            text: '{{ session('message_update') }}',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    </script>
-@endif

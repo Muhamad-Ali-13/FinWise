@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-6">
+    {{-- <div class="p-6">
         <!-- Row Pertama: Pemasukan -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <!-- Card Pemasukan Harian -->
@@ -150,5 +150,5 @@
                 }
             }
         });
-    </script>
+    </script> --}}
 </x-app-layout>
