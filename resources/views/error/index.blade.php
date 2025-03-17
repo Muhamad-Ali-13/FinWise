@@ -401,7 +401,7 @@
     <div class="error__title">404</div>
     <div class="error__subtitle">Hmmm...</div>
     <div class="error__description">It looks like one of the developers fell asleep</div>
-    <button  class="error__button error__button--active">Go Back Home</button>
+    <button class="error__button error__button--active" id="goHome">Go Back Home</button>
     <button class="error__button">CONTACT</button>
 </div>
 
@@ -432,6 +432,12 @@
         <div class="astronaut__head-visor-flare2"></div>
     </div>
 </div>
+
+<script>
+    document.getElementById("goHome").addEventListener("click", function() {
+        window.location.href = "/dashboard"; // Sesuaikan dengan URL dashboard kamu
+    });
+</script>
 <script>
     function drawVisor() {
         const canvas = document.getElementById('visor');
