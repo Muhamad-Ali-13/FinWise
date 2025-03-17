@@ -40,6 +40,9 @@
                             <x-dropdown-link :href="route('metode_pembayaran.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Metode Pembayaran') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('tabungan.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
+                                {{ __('Tabungan') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                     @endcan
@@ -64,9 +67,7 @@
                             <x-dropdown-link :href="route('pengeluaran.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
                                 {{ __('Pengeluaran') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('tabungan.index')" class="hover:bg-gray-100 hover:text-gray-600 transition duration-200">
-                                {{ __('Tabungan') }}
-                            </x-dropdown-link>
+                           
                         </x-slot>
                     </x-dropdown>
 

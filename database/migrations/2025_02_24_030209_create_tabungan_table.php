@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tabungan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relasi ke tabel users
             $table->integer('jumlah');
             $table->string('tujuan');
-            $table->timestamp('tanggal');
+            $table->date('tanggal');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

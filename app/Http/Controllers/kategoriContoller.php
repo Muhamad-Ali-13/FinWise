@@ -42,11 +42,11 @@ class kategoriContoller extends Controller
             // Menambahkan data kategori
             Kategori::create($data);
             return redirect()
-                ->route('Kategori.index')
+                ->route('kategori.index')
                 ->with('message_insert', 'Data Kategori Berhasil Ditambahkan');
         } catch (\Exception $e) {
             return redirect()
-                ->route('kategori.index')
+                ->route('error.index')
                 ->with('error_message', 'Terjadi kesalahan
             saat menambahkan data kategori.:' . $e->getMessage());
         }
@@ -86,7 +86,7 @@ class kategoriContoller extends Controller
                 ->with('message_update', 'Data Kategori Berhasil Diubah');
         } catch (\Exception $e) {
             return redirect()
-                ->route('kategori.index')
+                ->route('error.index')
                 ->with('error_message', 'Terjadi kesalahan
             saat mengubah data kategori.:' . $e->getMessage());
         }
@@ -102,9 +102,13 @@ class kategoriContoller extends Controller
             // Hapus data kategori
             $data = Kategori::find($id);
             $data->delete();
-            return back()->with('message_delete', 'Data Kategori Berhasil Dihapus');
+            return back()
+            // ->route('kategori.index')
+            ->with('message_delete', 'Data Kategori Berhasil Dihapus');
         } catch (\Exception $e) {
-            return back()->with('error_message', 'Terjadi kesalahan saat menghapus data kategori.:' . $e->getMessage());
+            return back()
+            // ->route('error.index')
+            ->with('error_message', 'Terjadi kesalahan saat menghapus data kategori.:' . $e->getMessage());
         }
     }
 }
