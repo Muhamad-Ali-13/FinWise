@@ -6,21 +6,21 @@
     </x-slot>
     <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-2">
-            <div class="bg-gray-400 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-gray-700 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <!-- Header Section -->
                 <div class="p-2 sm:p-5 flex justify-between items-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">DATA TABUNGAN</h3>
+                    <h3 class="text-lg font-medium text-gray-900 text-white">DATA TABUNGAN</h3>
                     <button type="button" onclick="openAddModal()"
-                        class="text-white bg-gray-700 hover:bg-gray-900 focus:ring-4 focus:outline-none 
+                        class="text-white bg-gray-500 hover:bg-gray-900 focus:ring-4 focus:outline-none 
                         focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-600 dark:hover:bg-gray-700">
                         TAMBAH TABUNGAN
                     </button>
                 </div>
                 <!-- Table Section -->
-                <div class="bg-gray-400 text-white dark:bg-gray-700 p-4 rounded-lg shadow">
+                <div class="bg-gray-700 text-white dark:bg-gray-500 p-4 rounded-lg shadow">
                     <div class="overflow-x-auto">
-                        <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-white uppercase bg-gray-700 dark:bg-gray-600 dark:text-gray-300">
+                        <table class="min-w-full text-sm text-left text-white dark:text-gray-400">
+                            <thead class="text-xs text-white uppercase bg-gray-900 dark:bg-gray-600 dark:text-gray-300">
                                 <tr>
                                     <th scope="col" class="px-4 py-3">NO</th>
                                     <th scope="col" class="px-4 py-3">USER</th>
@@ -32,22 +32,27 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $no = 1;
+                                @endphp
                                 @foreach ($tabungan as $key => $T)
-                                    <tr class="border-b text-white dark:border-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600">
-                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                    <tr
+                                    class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-4 py-2 sm:py-3">
+                                        {{ $tabungan->perPage() * ($tabungan->currentPage() - 1) + $key + 1 }}
+                                    </td>
                                         <td class="px-4 py-3">{{ $T->user->name }}</td>
                                         <td class="px-4 py-3">{{ number_format($T->jumlah, 0, ',', '.') }}</td>
                                         <td class="px-4 py-3">{{ $T->tujuan }}</td>
-                                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($T->tanggal)->format('d/m/Y') }}</td>
+                                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($T->tanggal)->format('d/m/Y') }}
+                                        </td>
                                         <td class="px-4 py-3">{{ $T->keterangan ?? '-' }}</td>
                                         <td class="px-4 py-3 flex flex-col gap-2 sm:flex-row">
                                             <button type="button"
                                                 class="w-full sm:w-auto bg-amber-400 p-2 rounded-lg text-white hover:bg-amber-500 transition-colors"
                                                 onclick="editSourceModal(this)" data-modal-target="editModal"
-                                                data-id="{{ $T->id }}"
-                                                data-user_id="{{ $T->user_id }}"
-                                                data-jumlah="{{ $T->jumlah }}"
-                                                data-tujuan="{{ $T->tujuan }}"
+                                                data-id="{{ $T->id }}" data-user_id="{{ $T->user_id }}"
+                                                data-jumlah="{{ $T->jumlah }}" data-tujuan="{{ $T->tujuan }}"
                                                 data-tanggal="{{ $T->tanggal }}"
                                                 data-keterangan="{{ $T->keterangan }}">
                                                 <i class="fi fi-sr-file-edit"></i> Edit
@@ -63,7 +68,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4">
+                    <div class="mt-4 flex justify-end">
                         {{ $tabungan->links() }}
                     </div>
                 </div>
@@ -171,7 +176,8 @@
                     @csrf
                     @method('PUT')
                     <div>
-                        <label for="edit_user_id" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        <label for="edit_user_id"
+                            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                             User
                         </label>
                         <select id="edit_user_id" name="user_id"
@@ -185,7 +191,8 @@
                         </select>
                     </div>
                     <div>
-                        <label for="edit_jumlah" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        <label for="edit_jumlah"
+                            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                             Jumlah
                         </label>
                         <input type="number" id="edit_jumlah" name="jumlah"
@@ -194,7 +201,8 @@
                             placeholder="Masukkan jumlah..." required>
                     </div>
                     <div>
-                        <label for="edit_tujuan" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        <label for="edit_tujuan"
+                            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                             Tujuan
                         </label>
                         <input type="text" id="edit_tujuan" name="tujuan"
@@ -203,7 +211,8 @@
                             placeholder="Masukkan tujuan..." required>
                     </div>
                     <div>
-                        <label for="edit_tanggal" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        <label for="edit_tanggal"
+                            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                             Tanggal
                         </label>
                         <input type="date" id="edit_tanggal" name="tanggal"
@@ -212,7 +221,8 @@
                             required>
                     </div>
                     <div>
-                        <label for="edit_keterangan" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        <label for="edit_keterangan"
+                            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                             Keterangan
                         </label>
                         <textarea id="edit_keterangan" name="keterangan"
@@ -295,7 +305,7 @@
             e.preventDefault();
             const formData = new FormData(this);
             try {
-                const response = await axios.post('{{ route("tabungan.store") }}', formData);
+                const response = await axios.post('{{ route('tabungan.store') }}', formData);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

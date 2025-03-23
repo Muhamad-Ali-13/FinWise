@@ -6,7 +6,7 @@
     </x-slot>
     <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-gray-600 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-gray-700 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <!-- Responsive Grid Container -->
                 <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Form Section -->
@@ -78,7 +78,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-4 flex justify-end items-center">
                             {{ $metode->links() }}
                         </div>
                     </div>
