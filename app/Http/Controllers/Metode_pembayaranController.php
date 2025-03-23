@@ -13,7 +13,7 @@ class Metode_pembayaranController extends Controller
     public function index()
     {
         try {
-            $metode = metode_pembayaran::paginate(5);
+            $metode = metode_pembayaran::paginate(3);
             return view('page.metodeP.index')->with([
                 'metode' => $metode,
             ]);

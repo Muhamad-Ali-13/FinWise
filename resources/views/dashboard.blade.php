@@ -5,9 +5,9 @@
         </h2>
     </x-slot>
 
-    <div class="p-6">
+    <div class="p-4 sm:p-6">
         <!-- Row Pertama: Pemasukan -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <!-- Card Pemasukan Harian -->
             <div class="bg-white rounded-lg shadow-md p-4 text-center">
                 <h3 class="text-sm font-medium text-gray-500">Pemasukan Harian</h3>
@@ -40,7 +40,7 @@
         </div>
     
         <!-- Row Kedua: Pengeluaran -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <!-- Card Pengeluaran Harian -->
             <div class="bg-white rounded-lg shadow-md p-4 text-center">
                 <h3 class="text-sm font-medium text-gray-500">Pengeluaran Harian</h3>
@@ -73,18 +73,18 @@
         </div>
     
         <!-- Diagram Kurva -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-8">
             <h3 class="text-lg font-medium text-gray-700 mb-4">Diagram Kurva</h3>
-            <div class="h-48">
+            <div class="h-48 sm:h-64">
                 <!-- Placeholder untuk diagram kurva -->
                 <canvas id="lineChart"></canvas>
             </div>
         </div>
     
         <!-- Diagram Batang -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
             <h3 class="text-lg font-medium text-gray-700 mb-4">Diagram Batang</h3>
-            <div class="h-48">
+            <div class="h-48 sm:h-64">
                 <!-- Placeholder untuk diagram batang -->
                 <canvas id="barChart"></canvas>
             </div>
