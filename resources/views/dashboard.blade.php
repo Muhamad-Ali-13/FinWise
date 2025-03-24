@@ -1,11 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="header" >
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-6">
+    <div class="p-4 sm:p-6 bg-gray-300">
         <!-- Row Pertama: Pemasukan -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <!-- Card Pemasukan Harian -->

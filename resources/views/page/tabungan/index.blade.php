@@ -37,7 +37,7 @@
                                 @endphp
                                 @foreach ($tabungan as $key => $T)
                                     <tr
-                                    class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    class="border-b dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-700">
                                     <td class="px-4 py-2 sm:py-3">
                                         {{ $tabungan->perPage() * ($tabungan->currentPage() - 1) + $key + 1 }}
                                     </td>

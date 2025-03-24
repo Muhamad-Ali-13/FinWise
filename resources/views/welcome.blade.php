@@ -11,9 +11,9 @@
     <!-- Custom Styles -->
     <style>
         :root {
-            --primary-color: #4B5563; /* Gray */
-            --secondary-color: #6B7280; /* Lighter Gray */
-            --accent-color: #454545; /* Red for accents */
+            --primary-color: #1e1e1e; /* Gray */
+            --secondary-color: #313131; /* Lighter Gray */
+            --accent-color: #393939; /* Red for accents */
             --background-color: #F9FAFB; /* Light Background */
             --text-color: #1F2937; /* Dark Text */
         }
