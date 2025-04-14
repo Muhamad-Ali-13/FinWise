@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/pemasukan/create', [PemasukanController::class, 'create'])->name('pemasukan.create');
+    Route::post('/pemasukan', [PemasukanController::class, 'store'])->name('pemasukan.store');
 });
 
 require __DIR__.'/auth.php';

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Pengeluaran') }}
+            {{ __('PENGELUARANAN') }}
         </h2>
     </x-slot>
 
@@ -27,6 +27,7 @@
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 bg-gray-100">NO</th>
+                                        <th scope="col" class="px-6 py-3">Nama</th>
                                         <th scope="col" class="px-6 py-3">Kategori</th>
                                         <th scope="col" class="px-6 py-3">Jumlah</th>
                                         <th scope="col" class="px-6 py-3">Tanggal</th>
@@ -45,6 +46,7 @@
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-100">
                                                 {{ $no++ }}
                                             </th>
+                                            <td class="px-6 py-4">{{ $p->users->name }}</td>
                                             <td class="px-6 py-4">{{ $p->kategori->nama_kategori }}</td>
                                             <td class="px-6 py-4 bg-gray-100">{{ $p->jumlah }}</td>
                                             <td class="px-6 py-4 bg-gray-100">{{ $p->tanggal }}</td>

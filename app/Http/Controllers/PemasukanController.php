@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Pemasukan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,10 +13,12 @@ class PemasukanController extends Controller
     public function index()
     {
         $pemasukan = Pemasukan::paginate(5);
-        $user_id = Auth::id();
-        // $pemasukan = Pemasukan::where('user_id', $user_id)->paginate(5);
+        $users = User::all();
+        $kategori = Kategori::all();
         return view('page.pemasukan.index')->with([
             'pemasukan' => $pemasukan,
+            'users' => $users,
+            'kategori' => $kategori,
         ]);
     }
 
@@ -25,42 +29,66 @@ class PemasukanController extends Controller
 
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'user_id' => 'required|exists:users,id', // Validasi user_id dari tabel users
-        'kategori_id' => 'required|exists:kategori,id', // Validasi kategori_id dari tabel kategori
-        'jumlah' => 'required|numeric',
-        'tanggal' => 'required|date',
-        'metode_pembayaran' => 'required|string',
-        'keterangan' => 'nullable|string',
-    ]);
+    {
+        try {
+            $data = [
+                'user_id' => $request->user_id,
+                'kategori_id' => $request->kategori_id,
+                'jumlah' => $request->jumlah,
+                'tanggal' => $request->tanggal,
+                'metode_pembayaran' => $request->metode_pembayaran,
+                'keterangan' => $request->keterangan,
+            ];
+            Pemasukan::create($data);
+            return redirect()
+                ->route('pemasukan.index')
+                ->with('message_insert', 'Data Pemasukan Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('pemasukan.index')
+                ->with('error_message', 'Terjadi kesalahan saat menambahkan data pemasukan: ' . $e->getMessage());
+        }
 
-    Pemasukan::create([
-        'user_id' => Auth::id(), // Ambil user_id dari user yang login
-        'kategori_id' => $validated['kategori_id'],
-        'jumlah' => $validated['jumlah'],
-        'tanggal' => $validated['tanggal'],
-        'metode_pembayaran' => $validated['metode_pembayaran'],
-        'keterangan' => $validated['keterangan'],
-    ]);
+    }
 
-    return redirect()->route('pemasukan.index')->with('success', 'Pemasukan berhasil ditambahkan!');
-}
-    
     public function show(Pemasukan $pemasukan)
     {
-        return response()->json($pemasukan->load(['user', 'kategori', 'metodePembayaran']));
+    
     }
 
     public function update(Request $request, Pemasukan $pemasukan)
     {
-        $pemasukan->update($request->all());
-        return response()->json($pemasukan);
+        try {
+            $data = [
+                'user_id' => $request->user_id,
+                'kategori_id' => $request->kategori_id,
+                'jumlah' => $request->jumlah,
+                'tanggal' => $request->tanggal,
+                'metode_pembayaran' => $request->metode_pembayaran,
+                'keterangan' => $request->keterangan,
+            ];
+            $pemasukan->update($data);
+            return redirect()
+                ->route('pemasukan.index')
+                ->with('message_update', 'Data Pemasukan Berhasil Diupdate');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('pemasukan.index')
+                ->with('error_message', 'Terjadi kesalahan saat mengupdate data pemasukan: ' . $e->getMessage());
+        }
     }
 
     public function destroy(Pemasukan $pemasukan)
     {
-        $pemasukan->delete();
-        return response()->json(['message' => 'Pemasukan deleted']);
+        try {
+            $pemasukan->delete();
+            return redirect()
+                ->route('pemasukan.index')
+                ->with('message_delete', 'Data Pemasukan Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('pemasukan.index')
+                ->with('error_message', 'Terjadi kesalahan saat menghapus data pemasukan: ' . $e->getMessage());    
+        }
     }
 }
