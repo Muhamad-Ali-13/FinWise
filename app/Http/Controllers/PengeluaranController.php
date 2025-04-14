@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Pengeluaran;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class PengeluaranController extends Controller
     {
         $pengeluaran = Pengeluaran::paginate(5);
         $users = User::all();
+        $kategori = Kategori::all();
         return view('page.pengeluaran.index')->with([
             'pengeluaran' => $pengeluaran,
             'users' => $users,
@@ -21,7 +23,16 @@ class PengeluaranController extends Controller
 
     public function create()
     {
-        return view('page.pengeluaran.create'); // Sesuaikan dengan nama file blade untuk form create
+        $users = User::all();
+        $kategori = Kategori::all();
+        return view('page.pengeluaran.create')->with([
+            'kategori' => $kategori,
+            'users' => $users,
+            'id_pengeluaran' => Pengeluaran::latest('id')->first() ? Pengeluaran::latest('id')->first()->id + 1 : 1,
+        ])->with([  
+            'kategori' => $kategori,
+            'users' => $users,
+        ]); // Sesuaikan dengan nama file blade untuk form create
     }
 
     public function store(Request $request)

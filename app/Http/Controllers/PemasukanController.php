@@ -24,7 +24,12 @@ class PemasukanController extends Controller
 
     public function create()
     {
-        return view('page.pemasukan.create'); // Sesuaikan dengan nama file blade untuk form create
+        $kategori = Kategori::all();
+        $users = User::all();
+        return view('page.pemasukan.create')->with([
+            'kategori' => $kategori,
+            'users' => $users,  
+        ]); // Sesuaikan dengan nama file blade untuk form create
     }
 
 
@@ -53,7 +58,7 @@ class PemasukanController extends Controller
 
     public function show(Pemasukan $pemasukan)
     {
-    
+            
     }
 
     public function update(Request $request, Pemasukan $pemasukan)

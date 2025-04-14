@@ -27,10 +27,7 @@ Route::resource('pengeluaran', PengeluaranController::class);
 Route::resource('tabungan', TabunganController::class);
 Route::get('/pemasukan/create', [PemasukanController::class, 'create'])->name('pemasukan.create');
 Route::post('/pemasukan', [PemasukanController::class, 'store'])->name('pemasukan.store');
-
-
 Route::delete('/Kategori/{id}', [kategoriContoller::class, 'destroy'])->name('Kategori.destroy');
-// Route::get('/Kategori/check-name/{name}', [kategoriContoller::class, 'checkName'])->name('Kategori.checkName');
 
 Route::resource('error', ErrorController::class);
 
