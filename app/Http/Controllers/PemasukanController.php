@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\metode_pembayaran;
 use App\Models\Pemasukan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PemasukanController extends Controller
 {
@@ -26,9 +28,12 @@ class PemasukanController extends Controller
     {
         $kategori = Kategori::all();
         $users = User::all();
+        $metode_pembayaran = metode_pembayaran::all();
         return view('page.pemasukan.create')->with([
             'kategori' => $kategori,
-            'users' => $users,  
+            'users' => $users,
+            'metode_pembayaran' => $metode_pembayaran,
+
         ]); // Sesuaikan dengan nama file blade untuk form create
     }
 
@@ -41,14 +46,20 @@ class PemasukanController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'jumlah' => $request->jumlah,
                 'tanggal' => $request->tanggal,
-                'metode_pembayaran' => $request->metode_pembayaran,
+                'metode_pembayaran_id' => $request->metode_pembayaran_id,
                 'keterangan' => $request->keterangan,
             ];
+            // dd($data);
             Pemasukan::create($data);
+
             return redirect()
                 ->route('pemasukan.index')
                 ->with('message_insert', 'Data Pemasukan Berhasil Ditambahkan');
         } catch (\Exception $e) {
+            Log::error('Error inserting pemasukan: ' . $e->getMessage(), [
+                'request' => $request->all(),
+                'user_id' => Auth::id(),
+            ]);
             return redirect()
                 ->route('pemasukan.index')
                 ->with('error_message', 'Terjadi kesalahan saat menambahkan data pemasukan: ' . $e->getMessage());
@@ -63,24 +74,24 @@ class PemasukanController extends Controller
 
     public function update(Request $request, Pemasukan $pemasukan)
     {
-        try {
-            $data = [
-                'user_id' => $request->user_id,
-                'kategori_id' => $request->kategori_id,
-                'jumlah' => $request->jumlah,
-                'tanggal' => $request->tanggal,
-                'metode_pembayaran' => $request->metode_pembayaran,
-                'keterangan' => $request->keterangan,
-            ];
-            $pemasukan->update($data);
-            return redirect()
-                ->route('pemasukan.index')
-                ->with('message_update', 'Data Pemasukan Berhasil Diupdate');
-        } catch (\Exception $e) {
-            return redirect()
-                ->route('pemasukan.index')
-                ->with('error_message', 'Terjadi kesalahan saat mengupdate data pemasukan: ' . $e->getMessage());
-        }
+    //     try {
+    //         $data = [
+    //             'user_id' => $request->user_id,
+    //             'kategori_id' => $request->kategori_id,
+    //             'jumlah' => $request->jumlah,
+    //             'tanggal' => $request->tanggal,
+    //             'metode_pembayaran_id' => $request->metode_pembayaran_id,
+    //             'keterangan' => $request->keterangan,
+    //         ];
+    //         $pemasukan->update($data);
+    //         return redirect()
+    //             ->route('pemasukan.index')
+    //             ->with('message_update', 'Data Pemasukan Berhasil Diupdate');
+    //     } catch (\Exception $e) {
+    //         return redirect()
+    //             ->route('pemasukan.index')
+    //             ->with('error_message', 'Terjadi kesalahan saat mengupdate data pemasukan: ' . $e->getMessage());
+    //     }
     }
 
     public function destroy(Pemasukan $pemasukan)

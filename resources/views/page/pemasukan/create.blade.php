@@ -43,15 +43,14 @@
 
             <!-- Metode Pembayaran -->
             <div class="mb-4">
-                <label for="metode_pembayaran" class="block text-sm font-medium text-gray-700">Metode
+                <label for="metode_pembayaran_id" class="block text-sm font-medium text-gray-700">Metode
                     Pembayaran</label>
-                <select name="metode_pembayaran" id="metode_pembayaran" required
+                <select name="metode_pembayaran_id" id="metode_pembayaran_id" required
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <option value="">Pilih Metode</option>
-                    <option value="Cash">Cash</option>
-                    <option value="Transfer">Transfer</option>
-                    <option value="QRIS">QRIS</option>
-                    <option value="E-Wallet">E-Wallet</option>
+                    <option value="">Pilih Metode Pembayaran</option>
+                            @foreach ($metode_pembayaran as $m)
+                                <option value="{{ $m->id }}">{{ $m->metode_pembayaran }}</option>
+                            @endforeach
                 </select>
             </div>
 

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('pengeluaran', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade');
+            $table->integer('jumlah');
+            $table->date('tanggal');
+            $table->foreignId('metode_pembayaran_id')->constrained('metode_pembayaran')->onDelete('cascade');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
