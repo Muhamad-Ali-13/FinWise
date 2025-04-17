@@ -46,11 +46,11 @@
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-100">
                                                 {{ $no++ }}
                                             </th>
-                                            <td class="px-6 py-4">{{ $p->users->name }}</td>
-                                            <td class="px-6 py-4">{{ $p->kategori->nama_kategori }}</td>
+                                            <td class="px-6 py-4  bg-gray-100">{{ $p->user->name }}</td>
+                                            <td class="px-6 py-4  bg-gray-100">{{ $p->kategori->nama_kategori }}</td>
                                             <td class="px-6 py-4 bg-gray-100">{{ $p->jumlah }}</td>
                                             <td class="px-6 py-4 bg-gray-100">{{ $p->tanggal }}</td>
-                                            <td class="px-6 py-4 bg-gray-100">{{ $p->metode_pembayaran->nama_metode }}
+                                            <td class="px-6 py-4 bg-gray-100">{{ $p->metodePembayaran->metode_pembayaran }}
                                             </td>
                                             <td class="px-6 py-4 bg-gray-100">{{ $p->keterangan }}</td>
                                             <td class="px-6 py-4 bg-gray-100">

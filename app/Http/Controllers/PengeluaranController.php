@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\metode_pembayaran;
 use App\Models\Pengeluaran;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,13 +26,11 @@ class PengeluaranController extends Controller
     {
         $users = User::all();
         $kategori = Kategori::all();
+        $metode_pembayaran = metode_pembayaran::all();
         return view('page.pengeluaran.create')->with([
             'kategori' => $kategori,
             'users' => $users,
-            'id_pengeluaran' => Pengeluaran::latest('id')->first() ? Pengeluaran::latest('id')->first()->id + 1 : 1,
-        ])->with([  
-            'kategori' => $kategori,
-            'users' => $users,
+            'metode_pembayaran' => $metode_pembayaran,
         ]); // Sesuaikan dengan nama file blade untuk form create
     }
 
@@ -43,9 +42,10 @@ class PengeluaranController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'jumlah' => $request->jumlah,
                 'tanggal' => $request->tanggal,
-                'metode_pembayaran' => $request->metode_pembayaran,
+                'metode_pembayaran_id' => $request->metode_pembayaran_id,
                 'keterangan' => $request->keterangan,
             ];
+            
             Pengeluaran::create($data);
             return redirect()
                 ->route('pengeluaran.index')
