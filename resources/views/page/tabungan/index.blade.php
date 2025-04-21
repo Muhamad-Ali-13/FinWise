@@ -36,11 +36,10 @@
                                     $no = 1;
                                 @endphp
                                 @foreach ($tabungan as $key => $T)
-                                    <tr
-                                    class="border-b dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-700">
-                                    <td class="px-4 py-2 sm:py-3">
-                                        {{ $tabungan->perPage() * ($tabungan->currentPage() - 1) + $key + 1 }}
-                                    </td>
+                                    <tr class="border-b dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-700">
+                                        <td class="px-4 py-2 sm:py-3">
+                                            {{ $tabungan->perPage() * ($tabungan->currentPage() - 1) + $key + 1 }}
+                                        </td>
                                         <td class="px-4 py-3">{{ $T->user->name }}</td>
                                         <td class="px-4 py-3">{{ number_format($T->jumlah, 0, ',', '.') }}</td>
                                         <td class="px-4 py-3">{{ $T->tujuan }}</td>
@@ -91,20 +90,7 @@
                 </div>
                 <form id="addForm" class="space-y-4">
                     @csrf
-                    <div>
-                        <label for="user_id" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
-                            User
-                        </label>
-                        <select id="user_id" name="user_id"
-                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 dark:text-white dark:bg-gray-600 
-                            dark:border-gray-500 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 p-2.5"
-                            required>
-                            <option value="" disabled selected>Pilih User</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <div>
                         <label for="jumlah" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                             Jumlah
@@ -175,21 +161,7 @@
                 <form id="editForm" class="space-y-4">
                     @csrf
                     @method('PUT')
-                    <div>
-                        <label for="edit_user_id"
-                            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
-                            User
-                        </label>
-                        <select id="edit_user_id" name="user_id"
-                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 dark:text-white dark:bg-gray-600 
-                            dark:border-gray-500 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 p-2.5"
-                            required>
-                            <option value="" disabled selected>Pilih User</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <div>
                         <label for="edit_jumlah"
                             class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
@@ -258,28 +230,27 @@
         function closeAddModal() {
             document.getElementById('addModal').classList.add('hidden');
         }
-        // Open Edit Modal
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
         async function editSourceModal(button) {
             const modal = document.getElementById('editModal');
             const form = document.getElementById('editForm');
             const id = button.dataset.id;
 
             try {
-                // Ambil data dari backend
                 const response = await axios.get(`/tabungan/${id}`);
                 const data = response.data;
 
-                // Debugging: Cek data yang diterima
-                console.log(data);
+                // Isi input form
+                document.getElementById('edit_jumlah').value = data.jumlah;
+                document.getElementById('edit_tujuan').value = data.tujuan;
+                document.getElementById('edit_tanggal').value = data.tanggal;
+                document.getElementById('edit_keterangan').value = data.keterangan;
 
-                // Mapping data ke input form
-                document.getElementById('edit_user_id').value = data.user_id || '';
-                document.getElementById('edit_jumlah').value = data.jumlah || '';
-                document.getElementById('edit_tujuan').value = data.tujuan || '';
-                document.getElementById('edit_tanggal').value = data.tanggal || '';
-                document.getElementById('edit_keterangan').value = data.keterangan || '';
-
-                // Set form action
+                // Set action form
                 form.action = `/tabungan/${id}`;
 
                 // Tampilkan modal
@@ -295,10 +266,6 @@
                     toast: true,
                 });
             }
-        }
-        // Close Edit Modal
-        function closeEditModal() {
-            document.getElementById('editModal').classList.add('hidden');
         }
         // Handle Add Form Submission
         document.getElementById('addForm').addEventListener('submit', async function(e) {
@@ -337,11 +304,13 @@
                 }
             }
         });
-        // Handle Edit Form Submission
         document.getElementById('editForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
             const id = this.action.split('/').pop();
+
+            // Pakai _method untuk PATCH atau PUT jika perlu
+            formData.append('_method', 'PUT');
 
             try {
                 const response = await axios.post(`/tabungan/${id}`, formData, {
@@ -349,6 +318,7 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 });
+
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

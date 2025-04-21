@@ -16,22 +16,25 @@ class PengeluaranController extends Controller
         $pengeluaran = Pengeluaran::paginate(5);
         $users = User::all();
         $kategori = Kategori::all();
+        $metode_pembayaran = metode_pembayaran::all();
         return view('page.pengeluaran.index')->with([
             'pengeluaran' => $pengeluaran,
             'users' => $users,
+            'kategori' => $kategori,
+            'metode_pembayaran' => $metode_pembayaran,
         ]);
     }
 
     public function create()
     {
-        $users = User::all();
-        $kategori = Kategori::all();
-        $metode_pembayaran = metode_pembayaran::all();
-        return view('page.pengeluaran.create')->with([
-            'kategori' => $kategori,
-            'users' => $users,
-            'metode_pembayaran' => $metode_pembayaran,
-        ]); // Sesuaikan dengan nama file blade untuk form create
+    //     $users = User::all();
+    //     $kategori = Kategori::all();
+    //     $metode_pembayaran = metode_pembayaran::all();
+    //     return view('page.pengeluaran.create')->with([
+    //         'kategori' => $kategori,
+    //         'users' => $users,
+    //         'metode_pembayaran' => $metode_pembayaran,
+    //     ]); // Sesuaikan dengan nama file blade untuk form create
     }
 
     public function store(Request $request)
@@ -66,21 +69,19 @@ class PengeluaranController extends Controller
     {
         try {
             $data = [
-                'user_id' => $request->user_id,
+                'user_id' => $request->edit_user_id,
                 'kategori_id' => $request->kategori_id,
                 'jumlah' => $request->jumlah,
                 'tanggal' => $request->tanggal,
-                'metode_pembayaran' => $request->metode_pembayaran,
+                'metode_pembayaran_id' => $request->metode_pembayaran_id,
                 'keterangan' => $request->keterangan,
             ];
+    
             $pengeluaran->update($data);
-            return redirect()
-                ->route('pengeluaran.index')
-                ->with('message_update', 'Data Pengeluaran Berhasil Diupdate');
+    
+            return response()->json(['message' => 'Data berhasil diperbarui.'], 200);
         } catch (\Exception $e) {
-            return redirect()
-                ->route('pengeluaran.index')
-                ->with('error_message', 'Terjadi kesalahan saat mengupdate data pengeluaran: ' . $e->getMessage());
+            return response()->json(['message' => 'Gagal memperbarui data: ' . $e->getMessage()], 500);
         }
     }
 
