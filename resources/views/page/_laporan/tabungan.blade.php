@@ -14,12 +14,12 @@
                     <div class="p-4 bg-gray-700 mb-4 rounded-lg font-semibold text-white">
                         <div class="flex items-center justify-between">
                             <div class="w-full text-center">
-                                LAPORAN PEMASUKAN
+                                LAPORAN TABUNGAN
                             </div>
                         </div>
                     </div>
                     <!-- Form for Date Range -->
-                    <form class="w-full mx-auto my-5" method="POST" action="{{ route('laporanPemasukan.store') }}">
+                    <form class="w-full mx-auto my-5" method="POST" action="{{ route('laporanTabungan.store') }}">
                         @csrf
                         <div class="w-full flex gap-6 mb-4">
                             <!-- Date Range: Dari -->

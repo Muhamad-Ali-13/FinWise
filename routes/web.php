@@ -4,6 +4,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\kategoriContoller;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\LaporanPemasukanController;
+use App\Http\Controllers\LaporanPengeluaranController;
+use App\Http\Controllers\LaporanTabunganController;
 use App\Http\Controllers\Metode_pembayaranController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
@@ -32,11 +35,10 @@ Route::resource('tabungan', TabunganController::class);
 Route::get('/pemasukan/create', [PemasukanController::class, 'create'])->name('pemasukan.create');
 Route::post('/pemasukan', [PemasukanController::class, 'store'])->name('pemasukan.store');
 Route::delete('/Kategori/{id}', [kategoriContoller::class, 'destroy'])->name('Kategori.destroy');
-Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-Route::get('/laporan/pemasukan', [LaporanController::class, 'pemasukan'])->name('laporan.pemasukan');
-Route::get('/laporan/pengeluaran', [LaporanController::class, 'pengeluaran'])->name('laporan.pengeluaran');
-Route::get('/laporan/tabungan', [LaporanController::class, 'tabungan'])->name('laporan.tabungan');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::resource('laporanPemasukan', LaporanPemasukanController::class)->middleware(['auth']);
+Route::resource('laporanPengeluaran', LaporanPengeluaranController::class)->middleware(['auth']);
+Route::resource('laporanTabungan', LaporanTabunganController::class)->middleware(['auth']);
 
 Route::resource('error', ErrorController::class);
 

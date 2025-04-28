@@ -81,13 +81,13 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('laporan.pemasukan')" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
+                        <x-dropdown-link :href="route('laporanPemasukan.index')" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
                             {{ __('Pemasukan') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('laporan.pengeluaran')" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
+                        <x-dropdown-link :href="route('laporanPengeluaran.index')" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
                             {{ __('Pengeluaran') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('laporan.tabungan')" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
+                        <x-dropdown-link :href="route('laporanTabungan.index')" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
                             {{ __('Tabungan') }}
                         </x-dropdown-link>
                     </x-slot>
