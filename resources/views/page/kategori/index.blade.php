@@ -1,25 +1,19 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('KATEGORI') }}
-        </h2>
-    </x-slot>
 
     <div class="py-6 sm:py-12 bg-gray-100 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-gray-700 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <!-- Responsive Grid Container -->
                 <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Form Section -->
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                        <div class="mb-4 text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">
+                    <div class="bg-gray-800 dark:bg-gray-700 p-4 rounded-lg shadow">
+                        <div class="mb-4 text-base sm:text-lg font-medium text-white dark:text-gray-300">
                             INPUT DATA KATEGORI
                         </div>
                         <form id="addForm" class="space-y-4">
                             @csrf
                             <div>
                                 <label for="nama_kategori"
-                                    class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                                    class="block mb-2 text-sm font-medium text-white dark:text-gray-300">
                                     Nama Kategori
                                 </label>
                                 <input type="text" name="nama_kategori" id="nama_kategori"
@@ -36,14 +30,14 @@
                     </div>
 
                     <!-- Table Section -->
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                        <div class="mb-4 text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">
+                    <div class="bg-gray-800 dark:bg-gray-700 p-4 rounded-lg shadow">
+                        <div class="mb-4 text-base sm:text-lg font-medium text-white dark:text-gray-300">
                             DAFTAR KATEGORI
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <table class="min-w-full text-sm text-left text-white dark:text-gray-400">
                                 <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-600 dark:text-gray-300">
+                                    class="text-xs text-gray-white uppercase bg-gray-900 dark:bg-gray-600 dark:text-white">
                                     <tr>
                                         <th scope="col" class="px-4 py-2 sm:py-3">NO</th>
                                         <th scope="col" class="px-4 py-2 sm:py-3">NAMA KATEGORI</th>
@@ -56,7 +50,7 @@
                                     @endphp
                                     @foreach ($Kategori as $key => $k)
                                         <tr
-                                            class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            class="border-b dark:border-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600">
                                             <td class="px-4 py-2 sm:py-3">
                                                 {{ $Kategori->perPage() * ($Kategori->currentPage() - 1) + $key + 1 }}
                                             </td>
@@ -85,7 +79,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 

@@ -14,11 +14,11 @@
     <!-- Custom Styles -->
     <style>
         :root {
-            --primary-color: #4B5563;
+            --primary-color: #1F2937;
             /* Gray */
-            --secondary-color: #6B7280;
+            --secondary-color: #1F2937;
             /* Lighter Gray */
-            --accent-color: #454545;
+            --accent-color: #1F2937;
             /* Red for accents */
             --background-color: #F9FAFB;
             /* Light Background */
@@ -210,7 +210,7 @@
 
         .card {
             background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 0.5rem;
             padding: 1.5rem;
             width: 100%;

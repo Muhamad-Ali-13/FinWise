@@ -1,32 +1,30 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <div class="min-h-screen bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <!-- Ringkasan Keuangan -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">
+                    <h3 class="text-base font-medium text-gray-500 mb-3">Total Pemasukan</h3>
+                    <p class="text-3xl font-bold text-green-600">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">
+                    <h3 class="text-base font-medium text-gray-500 mb-3">Total Pengeluaran</h3>
+                    <p class="text-3xl font-bold text-red-600">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">
+                    <h3 class="text-base font-medium text-gray-500 mb-3">Total Tabungan</h3>
+                    <p class="text-3xl font-bold text-blue-600">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</p>
+                </div>
+            </div>
 
-    <div class="p-4 sm:p-6 bg-gray-100">
-        <!-- Ringkasan Keuangan -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div class="bg-white rounded-lg shadow-md p-4 text-center">
-                <h3 class="text-sm font-medium text-gray-500">Total Pemasukan</h3>
-                <p class="text-2xl font-bold text-green-600 mt-2">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-4 text-center">
-                <h3 class="text-sm font-medium text-gray-500">Total Pengeluaran</h3>
-                <p class="text-2xl font-bold text-red-600 mt-2">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-4 text-center">
-                <h3 class="text-sm font-medium text-gray-500">Total Tabungan</h3>
-                <p class="text-2xl font-bold text-blue-600 mt-2">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</p>
-            </div>
-        </div>
-
-        <!-- Grafik Ringkasan -->
-        <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Grafik Ringkasan Transaksi</h3>
-            <div class="h-56">
-                <canvas id="summaryChart"></canvas>
+            <!-- Grafik Ringkasan -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-700 mb-6">Grafik Ringkasan Transaksi</h3>
+                <div class="h-96">
+                    <canvas id="summaryChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -47,16 +45,18 @@
                         {{ $totalTabungan }}
                     ],
                     backgroundColor: [
-                        'rgba(34, 197, 94, 0.6)',
-                        'rgba(239, 68, 68, 0.6)',
-                        'rgba(59, 130, 246, 0.6)'
+                        'rgba(34, 197, 94, 0.7)',
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(59, 130, 246, 0.7)'
                     ],
                     borderColor: [
                         'rgba(34, 197, 94, 1)',
                         'rgba(239, 68, 68, 1)',
                         'rgba(59, 130, 246, 1)'
                     ],
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 8,
+                    barPercentage: 0.6
                 }]
             },
             options: {
@@ -64,7 +64,41 @@
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp' + value.toLocaleString('id-ID');
+                            },
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        bodyFont: {
+                            size: 14
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                return ' Rp ' + context.parsed.y.toLocaleString('id-ID');
+                            }
+                        }
                     }
                 }
             }

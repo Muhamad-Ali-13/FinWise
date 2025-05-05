@@ -1,23 +1,18 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('PEMASUKAN') }}
-        </h2>
-    </x-slot>
     <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-2">
-            <div class="bg-gray-700 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-gray-800 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <!-- Header Section -->
                 <div class="p-2 sm:p-5 flex justify-between items-center">
                     <h3 class="text-lg font-medium text-gray-900 text-white">DATA PEMASUKAN</h3>
                     <button type="button" onclick="openAddModal()"
-                        class="text-white bg-gray-500 hover:bg-gray-900 focus:ring-4 focus:outline-none 
-                        focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-600 dark:hover:bg-gray-700">
+                        class="text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:outline-none 
+                        focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-900 dark:hover:bg-gray-800">
                         TAMBAH
                     </button>
                 </div>
                 <!-- Table Section -->
-                <div class="bg-gray-700 text-white dark:bg-gray-500 p-4 rounded-lg shadow">
+                <div class="bg-gray-800 text-white dark:bg-gray-500 p-4 rounded-lg shadow">
                     <div class="overflow-x-auto">
                         <table class="min-w-full text-sm text-left text-white dark:text-gray-400">
                             <thead class="text-xs text-white uppercase bg-gray-900 dark:bg-gray-600 dark:text-gray-300">
@@ -29,7 +24,9 @@
                                     <th scope="col" class="px-4 py-3">METODE PEMBAYARAN</th>
                                     <th scope="col" class="px-4 py-3">TANGGAL</th>
                                     <th scope="col" class="px-4 py-3">KETERANGAN</th>
+                                    @can ('role-A')
                                     <th scope="col" class="px-4 py-3">ACTION</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +45,7 @@
                                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($P->tanggal)->format('d/m/Y') }}
                                         </td>
                                         <td class="px-4 py-3">{{ $P->keterangan ?? '-' }}</td>
+                                        @can ('role-A')
                                         <td class="px-4 py-3 flex flex-col gap-2 sm:flex-row">
                                             <button type="button"
                                                 class="w-full sm:w-auto bg-amber-400 p-2 rounded-lg text-white hover:bg-amber-500 transition-colors"
@@ -66,6 +64,7 @@
                                                 <i class="fi fi-sr-delete-document"></i> Hapus
                                             </button>
                                         </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>
