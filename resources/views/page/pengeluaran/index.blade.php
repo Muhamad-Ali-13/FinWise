@@ -61,7 +61,7 @@
                                             <button type="button"
                                                 class="w-full sm:w-auto bg-red-500 p-2 rounded-lg text-white hover:bg-red-600 transition-colors mt-2 sm:mt-0"
                                                 onclick="return pengeluaranDelete('{{ $P->id }}','{{ $P->kategori->nama_kategori }}')">
-                                                <i class="fi fi-sr-delete-document"></i> Hapus
+                                                <i class="fi fi-sr-delete-document"></i> Hapuss
                                             </button>
                                         </td>
                                         @endcan
