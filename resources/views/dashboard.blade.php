@@ -70,14 +70,14 @@
                                 return 'Rp' + value.toLocaleString('id-ID');
                             },
                             font: {
-                                size: 14
+                                size: 15
                             }
                         }
                     },
                     x: {
                         ticks: {
                             font: {
-                                size: 14
+                                size: 15
                             }
                         }
                     }
@@ -86,13 +86,13 @@
                     legend: {
                         labels: {
                             font: {
-                                size: 14
+                                size: 15
                             }
                         }
                     },
                     tooltip: {
                         bodyFont: {
-                            size: 14
+                            size: 15
                         },
                         callbacks: {
                             label: function(context) {
