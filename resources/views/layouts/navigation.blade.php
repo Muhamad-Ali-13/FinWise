@@ -81,7 +81,7 @@
                     </x-dropdown>
                 @endcanany
 
-                @can('role-A')
+                @canany(['role-A','role-K'])
                     <!-- Laporan Dropdown (Accessible to all roles) -->
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -113,7 +113,7 @@
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
-                @endcan
+                @endcanany
             </div>
 
             <!-- Settings Dropdown -->
@@ -205,7 +205,7 @@
             @endcan
 
             <!-- Transaksi Dropdown (Accessible to Role-A and Role-U) -->
-            @canany(['role-A', 'role-U'])
+            @canany('role-A', 'role-U')
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -237,7 +237,7 @@
                 </x-dropdown>
             @endcanany
 
-            @can('role-A')
+            @canany('role-A','role-K')
                 <!-- Laporan Dropdown (Accessible to all roles) -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -268,7 +268,7 @@
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
-            @endcan
+            @endcanany
         </div>
 
         <!-- Responsive Settings Options -->
