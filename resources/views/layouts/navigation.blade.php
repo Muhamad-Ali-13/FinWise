@@ -42,7 +42,6 @@
                                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
                                 {{ __('Metode Pembayaran') }}
                             </x-dropdown-link>
-
                         </x-slot>
                     </x-dropdown>
                 @endcan
@@ -82,7 +81,7 @@
                 @endcanany
 
                 @canany(['role-A','role-K'])
-                    <!-- Laporan Dropdown (Accessible to all roles) -->
+                    <!-- Laporan Dropdown (Accessible to Role-A and Role-K) -->
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -116,7 +115,7 @@
                 @endcanany
             </div>
 
-            <!-- Settings Dropdown -->
+            <!-- Settings Dropdown for Larger Screens -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -165,8 +164,8 @@
         </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="sm:hidden">
+    <!-- Mobile Menu (Sidebar) -->
+    <div :class="{ 'block': open, 'hidden': !open }" class="sm:hidden bg-gray-800 absolute top-16 left-0 w-full h-screen z-50">
         <div class="pt-2 pb-3 space-y-1">
             <!-- Dashboard Link (Accessible to all roles) -->
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
@@ -199,13 +198,12 @@
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200">
                             {{ __('Metode Pembayaran') }}
                         </x-dropdown-link>
-
                     </x-slot>
                 </x-dropdown>
             @endcan
 
             <!-- Transaksi Dropdown (Accessible to Role-A and Role-U) -->
-            @canany('role-A', 'role-U')
+            @canany(['role-A', 'role-U'])
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -237,8 +235,8 @@
                 </x-dropdown>
             @endcanany
 
-            @canany('role-A','role-K')
-                <!-- Laporan Dropdown (Accessible to all roles) -->
+            @canany(['role-A','role-K'])
+                <!-- Laporan Dropdown (Accessible to Role-A and Role-K) -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button

@@ -115,6 +115,16 @@
             color: var(--accent-color);
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger i {
+            font-size: 1.5rem;
+        }
+
         /* Hero Section */
         .hero-section {
             display: flex;
@@ -262,10 +272,8 @@
 
         .faq-answer {
             max-height: 0;
-            /* Jawaban disembunyikan dengan max-height */
             overflow: hidden;
             padding: 0 0.75rem;
-            /* Padding horizontal saja */
             font-size: 0.9rem;
             color: var(--secondary-color);
             background-color: var(--background-color);
@@ -276,9 +284,7 @@
 
         .faq-answer.active {
             max-height: 200px;
-            /* Sesuaikan dengan tinggi maksimal jawaban */
             padding: 0.75rem;
-            /* Padding normal saat aktif */
         }
 
         /* Footer */
@@ -345,6 +351,37 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .navbar .nav-links,
+            .navbar .auth-buttons {
+                display: none;
+            }
+
+            .navbar .hamburger {
+                display: block;
+            }
+
+            .navbar .nav-links.active,
+            .navbar .auth-buttons.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 50%; /* Sidebar hanya menutupi setengah layar */
+                height: 100%;
+                background-color: var(--primary-color);
+                padding: 2rem;
+                z-index: 1000;
+                transition: transform 0.3s ease-in-out;
+                transform: translateX(0);
+            }
+
+            .navbar .nav-links.active a,
+            .navbar .auth-buttons.active .btn {
+                margin-bottom: 1rem;
+            }
+
+            /* Hero Section */
             .hero-section {
                 flex-direction: column;
             }
@@ -365,6 +402,21 @@
             .hero-section .content-container p {
                 font-size: 1rem;
             }
+
+            /* About FinWise */
+            .cards-container {
+                flex-direction: column;
+            }
+
+            /* FAQ Section */
+            .faq-section {
+                padding: 2rem 1rem;
+            }
+
+            /* Footer */
+            footer .footer-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -380,7 +432,7 @@
         </div>
         <div class="auth-buttons">
             @auth
-                <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
+                
             @else
                 <a href="{{ route('login') }}" class="btn btn-secondary">Log In</a>
                 @if (Route::has('register'))
@@ -388,6 +440,7 @@
                 @endif
             @endauth
         </div>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
 
     <!-- Hero Section -->
@@ -472,14 +525,6 @@
         </div>
     </section>
 
-    <!-- JavaScript for FAQ Accordion -->
-    <script>
-        function toggleAnswer(element) {
-            const answer = element.nextElementSibling;
-            answer.classList.toggle('active');
-        }
-    </script>
-
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -508,15 +553,35 @@
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
-        <p>&copy; 2025 Financial Management. by Muhamad Ali.</p>
+        <p>© 2025 Financial Management. by Muhamad Ali.</p>
     </footer>
 
-    <!-- JavaScript for FAQ Accordion -->
+    <!-- JavaScript for FAQ Accordion and Hamburger Menu -->
     <script>
+        // FAQ Accordion
         function toggleAnswer(element) {
             const answer = element.nextElementSibling;
             answer.classList.toggle('active');
         }
+
+        // Hamburger Menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const authButtons = document.querySelector('.auth-buttons');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            authButtons.classList.toggle('active');
+        });
+
+        // Close sidebar when a link is clicked
+        const navLinksItems = document.querySelectorAll('.nav-links a, .auth-buttons a');
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                authButtons.classList.remove('active');
+            });
+        });
     </script>
 </body>
 

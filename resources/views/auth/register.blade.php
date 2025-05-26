@@ -47,7 +47,7 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex items-center justify-between mt-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between mt-4 space-y-4 sm:space-y-0">
             <a class="text-sm text-gray-600 underline hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                href="{{ route('login') }}">
                 {{ __('Already registered?') }}
