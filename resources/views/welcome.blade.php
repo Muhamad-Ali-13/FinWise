@@ -459,7 +459,7 @@
 
     <!-- About FinWise Section -->
     <section id="about-finwise" class="about-finwise">
-        <h2>Tentang FinWise</h2>
+        <h2>About FinWise</h2>
         <p>
             FinWise adalah platform manajemen keuangan modern yang dirancang untuk membantu individu dan bisnis
             mengelola anggaran, melacak pengeluaran, dan merencanakan masa depan finansial mereka dengan mudah dan
