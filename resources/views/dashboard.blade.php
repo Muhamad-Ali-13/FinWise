@@ -1,18 +1,24 @@
 <x-app-layout>
     <div class="min-h-screen bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <div class="mb-6">
+                <h2 class="text-xl font-semibold text-gray-700">Dashboard - {{ ucfirst($ringkasan['akses']) }}</h2>
+                <p class="text-gray-500">{{ $ringkasan['label'] }}</p>
+            </div>
+
             <!-- Ringkasan Keuangan -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">
                     <h3 class="text-base font-medium text-gray-500 mb-3">Total Pemasukan</h3>
                     <p class="text-3xl font-bold text-green-600">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
                 </div>
-                
+
                 <div class="bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">
                     <h3 class="text-base font-medium text-gray-500 mb-3">Total Pengeluaran</h3>
-                    <p class="text-3xl font-bold text-red-600">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
+                    <p class="text-3xl font-bold text-red-600">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}
+                    </p>
                 </div>
-                
+
                 <div class="bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">
                     <h3 class="text-base font-medium text-gray-500 mb-3">Total Tabungan</h3>
                     <p class="text-3xl font-bold text-blue-600">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</p>

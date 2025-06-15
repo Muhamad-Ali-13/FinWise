@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Tabungan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class TabunganController extends Controller
 {
     public function index()
     {
         try {
-            $tabungan = Tabungan::paginate(5);
+            $user = FacadesAuth::user();
+
+            if ($user->role === 'A') {
+                // Admin melihat semua data
+                $tabungan = Tabungan::with('user')->paginate(5);
+            } else {
+                // Selain admin, hanya lihat milik sendiri
+                $tabungan = Tabungan::where('user_id', $user->id)->paginate(5);
+            }
             $users = User::all();
             return view('page.tabungan.index')->with([
                 'tabungan' => $tabungan,

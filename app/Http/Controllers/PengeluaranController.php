@@ -13,7 +13,17 @@ class PengeluaranController extends Controller
 {
     public function index()
     {
-        $pengeluaran = Pengeluaran::paginate(5);
+        $user = Auth::user();
+
+        if ($user->role === 'A') {
+            // Admin melihat semua data
+            $pengeluaran = Pengeluaran::with(['user', 'kategori', 'metodePembayaran'])->paginate(5);
+        } else {
+            // Selain admin, hanya lihat milik sendiri
+            $pengeluaran = Pengeluaran::with(['user', 'kategori', 'metodePembayaran'])
+                ->where('user_id', $user->id)
+                ->paginate(5);
+        }
         $users = User::all();
         $kategori = Kategori::all();
         $metode_pembayaran = metode_pembayaran::all();
